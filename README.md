@@ -7,10 +7,36 @@ the fields used by the original snuck.me interface.
 ## Run locally
 
 ```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip git wget curl nano -y
+
+git clone https://github.com/netwerkfix/snuckme.git
+cd snuckme
+git pull origin master
+
 python3 -m venv .venv
 source .venv/bin/activate
+
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+
 uvicorn app:app --host 0.0.0.0 --port 8000
+
+curl http://127.0.0.1:8000/health
+
+## Certificate API testen ##
+curl -s -X POST http://127.0.0.1:8000/api/certificate \
+  -H "Content-Type: application/json" \
+  -d '{"url":"google.com"}' | python3 -m json.tool
+
+## Je moet onder andere dit terugkrijgen:
+ {
+  "success": true,
+  "hostname": "google.com",
+  "port": 443
+}
+##
+
 ```
 
 Open <http://127.0.0.1:8000>. API documentation is available at
@@ -21,6 +47,9 @@ Open <http://127.0.0.1:8000>. API documentation is available at
 ```bash
 docker build -t snuckme-python .
 docker run --rm -p 8000:8000 snuckme-python
+
+# Test it ##
+curl http://127.0.0.1:8000/health
 ```
 
 ## Configuration

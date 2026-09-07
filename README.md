@@ -45,11 +45,11 @@ Open <http://127.0.0.1:8000>. API documentation is available at
 ## Docker
 
 ```bash
-docker build -t snuckme-python .
-docker run --rm -p 8000:8000 snuckme-python
+sudo docker build -t snuckme-python .
+sudo docker run --rm -p 8000:8000 snuckme-python
 
 # Test it ##
-curl http://127.0.0.1:8000/health
+sudo curl http://127.0.0.1:8000/health
 ```
 
 ## Configuration
